@@ -1,32 +1,242 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>集合 | Hexo</title><meta name="author" content="mxm"><meta name="copyright" content="mxm"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="单列集合(接口)Collection是所有单列集合的父接口。子接口有List和Set 如果集合寸的是对象，则contains()方法使用的是对象类里的equals。 泛型使用 Java 泛型能够对整型数组、字符串数组甚至其他任何类型的数组进行排序。使用&lt;E,T&gt;指定类型 &lt;? extends T&gt;表示该通配符所代表的类型是T类型的子类。&lt;? super T&gt;表示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集合">
+<meta property="og:url" content="https://mxm127.github.io.git/2024/03/08/%E9%9B%86%E5%90%88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="单列集合(接口)Collection是所有单列集合的父接口。子接口有List和Set 如果集合寸的是对象，则contains()方法使用的是对象类里的equals。 泛型使用 Java 泛型能够对整型数组、字符串数组甚至其他任何类型的数组进行排序。使用&lt;E,T&gt;指定类型 &lt;? extends T&gt;表示该通配符所代表的类型是T类型的子类。&lt;? super T&gt;表示">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-03-08T08:14:42.000Z">
+<meta property="article:modified_time" content="2024-03-08T08:15:31.813Z">
+<meta property="article:author" content="mxm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mxm127.github.io.git/2024/03/08/%E9%9B%86%E5%90%88/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '集合',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-08 16:15:31'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">集合</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-03-08T08:14:42.000Z" title="Created 2024-03-08 16:14:42">2024-03-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-03-08T08:15:31.813Z" title="Updated 2024-03-08 16:15:31">2024-03-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="集合"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="单列集合-接口"><a href="#单列集合-接口" class="headerlink" title="单列集合(接口)"></a>单列集合(接口)</h1><h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><p>是所有单列集合的父接口。<br>子接口有List和Set</p>
+<p>如果集合寸的是对象，则contains()方法使用的是对象类里的equals。</p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>使用 Java 泛型能够对整型数组、字符串数组甚至其他任何类型的数组进行排序。<br>使用&lt;E,T&gt;指定类型</p>
+<p>&lt;? extends T&gt;表示该通配符所代表的类型是T类型的子类。<br>&lt;? super T&gt;表示该通配符所代表的类型是T类型的父类。</p>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>子接口遍历同样可以使用这些方法</p>
+<h4 id="Iterator-迭代器遍历"><a href="#Iterator-迭代器遍历" class="headerlink" title="Iterator 迭代器遍历"></a>Iterator 迭代器遍历</h4><p>迭代器在Java的类是Iterator，迭代器是集合专用的遍历方式。<br>使用迭代器遍历时，不能使用集合的方法进行增加或删除，但是可以使用Iterator对象进行删除元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//        创建一个集合</span></span><br><span class="line">        Collection&lt;String&gt; a = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//        获取一个迭代器对象，迭代器默认指向集合的0索引位置</span></span><br><span class="line">        Iterator&lt;String&gt; it = a.iterator();</span><br><span class="line"><span class="comment">//        判断当前位置是否有元素</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> it.hasNext();</span><br><span class="line"><span class="comment">//        获取当前索引的元素，并移动迭代器指向后一个索引位置</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> it.next();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="增强for遍历"><a href="#增强for遍历" class="headerlink" title="增强for遍历"></a>增强for遍历</h4><ul>
+<li>底层使用的就是迭代器，为了简化迭代器的代码书写。&#x20;</li>
+<li>所有的单列集合和数组才能使用增强for遍历<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;String&gt; a = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(String str : a)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Lambda表达式遍历-forEach"><a href="#Lambda表达式遍历-forEach" class="headerlink" title="Lambda表达式遍历 forEach"></a>Lambda表达式遍历 forEach</h4><p>底层原理：</p>
+<ul>
+<li>遍历集合，依次得到每一个元素。并将元素传递给accept方法。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;String&gt;; a = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;;();</span><br><span class="line"></span><br><span class="line">a.forEach(<span class="keyword">new</span> <span class="title class_">Consumer</span>&lt;String&gt;;() &#123;</span><br><span class="line"><span class="comment">// s表示集合中的每个元素。</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="comment">//对每个元素进行操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="list-接口"><a href="#list-接口" class="headerlink" title="list (接口)"></a>list (接口)</h2><h3 id="特有方法"><a href="#特有方法" class="headerlink" title="特有方法"></a>特有方法</h3><p>实现类有ArrayList 和 LinkedList以及Vector<br>特点为：添加的元素有序的(指存和取的顺序是一致的)、可重复、有索引。</p>
+<h4 id="add-int-index-E-element-：在指定索引位置处添加元素"><a href="#add-int-index-E-element-：在指定索引位置处添加元素" class="headerlink" title="add(int index , E element)：在指定索引位置处添加元素"></a>add(int index , E element)：在指定索引位置处添加元素</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt;; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;;();</span><br><span class="line">list.add(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"><span class="comment">//在指定位置添加元素。</span></span><br><span class="line">list.add(<span class="number">1</span>,<span class="string">&quot;bbbb&quot;</span>);</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<h4 id="remove-int-index-：删除指定索引的元素-remove-E-element-删除指定元素"><a href="#remove-int-index-：删除指定索引的元素-remove-E-element-删除指定元素" class="headerlink" title="remove(int index)：删除指定索引的元素 remove(E element)删除指定元素"></a>remove(int index)：删除指定索引的元素 remove(E element)删除指定元素</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">删除指定索引处的元素并返回</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> list.remove(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt;; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;;();<span class="comment">//list有：1，2，3，4，5</span></span><br><span class="line"><span class="comment">//此时如果想删除为1的元素，使用list.remove(1) 会将1识别为索引。</span></span><br><span class="line"><span class="comment">//因为list里面的元素是Integer，而1是int类型。方法重载会使用形参和实参类型一致的方法</span></span><br><span class="line">list.remove(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="set-int-index，E-element-：修改指定索引的元素，将原元素返回。"><a href="#set-int-index，E-element-：修改指定索引的元素，将原元素返回。" class="headerlink" title="set(int index，E element) ：修改指定索引的元素，将原元素返回。"></a>set(int index，E element) ：修改指定索引的元素，将原元素返回。</h4><h4 id="get-int-index-：获取指定索引的元素"><a href="#get-int-index-：获取指定索引的元素" class="headerlink" title="get(int index) ：获取指定索引的元素"></a>get(int index) ：获取指定索引的元素</h4><h3 id="遍历-1"><a href="#遍历-1" class="headerlink" title="遍历"></a>遍历</h3><h4 id="普通for循环-利用list-size-进行循环"><a href="#普通for循环-利用list-size-进行循环" class="headerlink" title="普通for循环  -利用list.size()进行循环"></a>普通for循环  -利用list.size()进行循环</h4><h4 id="ListIterator-列表迭代器"><a href="#ListIterator-列表迭代器" class="headerlink" title="ListIterator 列表迭代器"></a>ListIterator 列表迭代器</h4><p>迭代器的子接口，额外添加了增加、修改方法，可以通过ListIterator对象进行增加和修改元素。</p>
+<h3 id="ArrayList原理"><a href="#ArrayList原理" class="headerlink" title="ArrayList原理"></a>ArrayList原理</h3><ul>
+<li>利用空参创建时，在底层默认创建一个长度为0的数组。</li>
+<li>在添加第一个元素时，底层会创建一个新的长度为10的数组。</li>
+<li>利用size指向下一次添加时的位置（索引），同时代表着集合的长度</li>
+<li>当存满时，会创建1.5倍长度的数组，然后将原数组的内容拷贝到新数组。</li>
+<li>如果一次添加多个数组，1.5倍仍然放不下时，则新创建的数组长度以实际需求为准。</li>
+</ul>
+<h3 id="LinkedList集合"><a href="#LinkedList集合" class="headerlink" title="LinkedList集合"></a>LinkedList集合</h3><p>底层数据结构是双链表、查询慢、增删块。</p>
+<h2 id="set-接口"><a href="#set-接口" class="headerlink" title="set(接口)"></a>set(接口)</h2><p>特点为：添加的元素是无序的(存和取的顺序可能不一致)、不重复、无索引</p>
+<p>实现类：</p>
+<ul>
+<li>HashSet：无序、不重复、无索引</li>
+<li>LinkedHashSet：有序、不重复、无索引</li>
+<li>TreeSet：可排序、不重复、无索引</li>
+</ul>
+<h3 id="Hashset原理"><a href="#Hashset原理" class="headerlink" title="Hashset原理"></a>Hashset原理</h3><ul>
+<li><p>Hashset集合采取哈希表存储数据。哈希表对于增删改查都有较好的性能。</p>
+</li>
+<li><p>JDK8之前采用 数组+链表 ；JDK8之后使用 数据+链表+红黑树</p>
+</li>
+</ul>
+<h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><ol>
+<li>创建默认长度为16，默认加载因子为0.75的数组。</li>
+<li>根据元素的哈希值跟数组的长度计算出因存入的位置</li>
+<li>判断要存入的位置，如果为null则直接存入，如果不为null，表示有元素，此时调用equals方法比较该位置链表的每一个元素属性值。</li>
+<li>如果一样：不存</li>
+<li>如果不一样：存入数组，形成链表。JDK8以前，新元素存入数组，老元素挂在新元素下面；JDK8以后，新元素挂在老元素下面。</li>
+</ol>
+<p>tips：</p>
+<ol>
+<li>JDK8以后，链表长度超过8且数组长度大于等于64时，自动转换为红黑树。</li>
+<li>如果集合存储的是自定义对象，必须重用hashCode和equals方法。</li>
+</ol>
+<h3 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h3><p>有序、不重复、无索引。</p>
+<p>原理：底层数据结构仍然是哈希表，只是每个元素之间按照存储的顺序多了一个双链表。</p>
+<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p>不重复、无索引、可排序（&#x3D;&#x3D;添加元素时进行排序&#x3D;&#x3D;）。</p>
+<h4 id="Comparable"><a href="#Comparable" class="headerlink" title="Comparable;"></a>Comparable;</h4><p>按照元素的默认规则进行排序。<br>TreeSet底层基于红黑树的数据结构实现排序。</p>
+<p>要排序的为自定义对象类，类需需要实现接口Comparable<E>;;，然后重写方法compareTo(E e),e为红黑树中存的元素。compareTo返回值为负数，表示当前要添加的元素某个属性值比当前节点的属性值要小，存左边；返回值为整数表示存右边；返回值为0表示已存在，舍弃。</p>
+<h4 id="Comparator"><a href="#Comparator" class="headerlink" title="Comparator;"></a>Comparator<T>;</h4><p>比较器排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TreeSet&lt;Integer&gt;; treeSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;;(<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span> &#123;</span><br><span class="line">        <span class="comment">// o1表示要添加的元素，o2表示已经存在在红黑树的元素。</span></span><br><span class="line">        <span class="comment">// 返回值规则和Comparable一样</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Starrysky_LTL/article/details/109539111">Comparable和Comparator区别</a></p>
+<h1 id="双列集合"><a href="#双列集合" class="headerlink" title="双列集合"></a>双列集合</h1><p>双列集合内存放键值对，键不能重复，值可以重复。</p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>包括HashMap，LinkedHashMap，TreeMap。</p>
+<h2 id="添加元素-1"><a href="#添加元素-1" class="headerlink" title="添加元素"></a>添加元素</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果键不存在，那么会直接把键值对对象添加到map集合，方法返回null</span></span><br><span class="line"><span class="comment">// 如果键存在，那么会把键对应的值覆盖，并把被覆盖的值返回</span></span><br><span class="line">m.put(K key,V value);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据键删除对应键值对，并返回值。</span></span><br><span class="line">m.remove(Object key);</span><br></pre></td></tr></table></figure>
+
+<h2 id="是否包含"><a href="#是否包含" class="headerlink" title="是否包含"></a>是否包含</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断是否包含对应键</span></span><br><span class="line">m.containsKey(Object key);</span><br><span class="line"><span class="comment">// 判断是否包含对应值</span></span><br><span class="line">m.containsValue(Object value);</span><br></pre></td></tr></table></figure>
+<h2 id="遍历-2"><a href="#遍历-2" class="headerlink" title="遍历"></a>遍历</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取所有的键，把这些键放到一个单列集合中</span></span><br><span class="line">Set&lt;K&gt;; keys = map.KeySet();</span><br><span class="line"><span class="comment">// 使用强循环遍历</span></span><br><span class="line"><span class="keyword">for</span>(K key : keys)&#123;</span><br><span class="line"><span class="comment">// 使用map.get(key)根据键查找双列集合，并返回对应的值</span></span><br><span class="line">    <span class="type">V</span> <span class="variable">value</span> <span class="operator">=</span> map.get(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://mxm127.github.io.git">mxm</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://mxm127.github.io.git/2024/03/08/%E9%9B%86%E5%90%88/">https://mxm127.github.io.git/2024/03/08/%E9%9B%86%E5%90%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/03/08/%E5%B8%B8%E7%94%A8API/" title="常用API“"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">常用API“</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">mxm</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E5%88%97%E9%9B%86%E5%90%88-%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.</span> <span class="toc-text">单列集合(接口)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection"><span class="toc-number">1.1.</span> <span class="toc-text">Collection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.1.</span> <span class="toc-text">遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Iterator-%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Iterator 迭代器遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%BC%BAfor%E9%81%8D%E5%8E%86"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">增强for遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%81%8D%E5%8E%86-forEach"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Lambda表达式遍历 forEach</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list-%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.</span> <span class="toc-text">list (接口)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%9C%89%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">特有方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#add-int-index-E-element-%EF%BC%9A%E5%9C%A8%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E4%BD%8D%E7%BD%AE%E5%A4%84%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">add(int index , E element)：在指定索引位置处添加元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remove-int-index-%EF%BC%9A%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E7%9A%84%E5%85%83%E7%B4%A0-remove-E-element-%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">remove(int index)：删除指定索引的元素 remove(E element)删除指定元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#set-int-index%EF%BC%8CE-element-%EF%BC%9A%E4%BF%AE%E6%94%B9%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%8C%E5%B0%86%E5%8E%9F%E5%85%83%E7%B4%A0%E8%BF%94%E5%9B%9E%E3%80%82"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">set(int index，E element) ：修改指定索引的元素，将原元素返回。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-int-index-%EF%BC%9A%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%B4%A2%E5%BC%95%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">get(int index) ：获取指定索引的元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%80%9Afor%E5%BE%AA%E7%8E%AF-%E5%88%A9%E7%94%A8list-size-%E8%BF%9B%E8%A1%8C%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">普通for循环  -利用list.size()进行循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ListIterator-%E5%88%97%E8%A1%A8%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">ListIterator 列表迭代器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ArrayList%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">ArrayList原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LinkedList%E9%9B%86%E5%90%88"><span class="toc-number">1.3.4.</span> <span class="toc-text">LinkedList集合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.4.</span> <span class="toc-text">set(接口)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hashset%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.1.</span> <span class="toc-text">Hashset原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">添加元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LinkedHashSet"><span class="toc-number">1.4.2.</span> <span class="toc-text">LinkedHashSet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TreeSet"><span class="toc-number">1.4.3.</span> <span class="toc-text">TreeSet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Comparable"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">Comparable;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Comparator"><span class="toc-number">1.4.3.2.</span> <span class="toc-text">Comparator;</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E5%88%97%E9%9B%86%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text">双列集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Map"><span class="toc-number">2.1.</span> <span class="toc-text">Map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0-1"><span class="toc-number">2.2.</span> <span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-number">2.3.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB"><span class="toc-number">2.4.</span> <span class="toc-text">是否包含</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8D%E5%8E%86-2"><span class="toc-number">2.5.</span> <span class="toc-text">遍历</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2024/03/08/%E9%9B%86%E5%90%88/" title="集合">集合</a><time datetime="2024-03-08T08:14:42.000Z" title="Created 2024-03-08 16:14:42">2024-03-08</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/03/08/%E5%B8%B8%E7%94%A8API/" title="常用API“">常用API“</a><time datetime="2024-03-08T07:56:55.000Z" title="Created 2024-03-08 15:56:55">2024-03-08</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/03/08/java/" title="java">java</a><time datetime="2024-03-08T07:51:29.000Z" title="Created 2024-03-08 15:51:29">2024-03-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By mxm</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
